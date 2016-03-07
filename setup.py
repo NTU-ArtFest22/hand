@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
-from subprocess import call
+import PhotoProcess
 import time
 
 btnPin = 18
@@ -16,10 +16,14 @@ def init():
 
     GPIO.add_event_detect(btnPin, GPIO.RISING, callback=takePic, bouncetime=350)
 
+# after 3 sec(blink 3 times) take a photo
 def takePic(channel):
-    blink(poseLedPin, 3) # after 3 sec(blink 3 times) take a photo
-    call(['gphoto2', '--capture-image-and-download', '--no-keep'])
+    blink(poseLedPin, 3)
     # continuous shooting: gphoto2 -I 1 -F 4 --capture-image-and-download --no-keep
+
+    filename = PhotoProcess.takePic()
+    PhotoProcess.uploadPic(filename)
+
 
 def blink(pin, number):
     for i in range(number):
