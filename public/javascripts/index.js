@@ -3,9 +3,9 @@
 var photosRef = new Firebase('https://ntuaf-hand.firebaseio.com/photos');
 
 photosRef.on('child_added', function(childSnapshot, prevChildKey) {
-  console.log(childSnapshot.key());
-  var filename = 'images/photos/' + childSnapshot.key() + '.JPG';
-  appendImg(filename);
+  var data = childSnapshot.val();
+
+  appendImg(data.real_path);
 });
 
 function appendImg(src){
