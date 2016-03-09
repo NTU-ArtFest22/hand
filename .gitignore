@@ -4,3 +4,6 @@ node_modules
 
 public/images/photos/
 public/bower_components/
+
+*.pyc
+config.yml

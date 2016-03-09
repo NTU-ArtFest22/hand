@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
-import PhotoProcess
 import time
+from photoprocess import PhotoProcess
 
 btnPin = 18
 poseLedPin = 23
@@ -21,8 +21,10 @@ def takePic(channel):
     blink(poseLedPin, 3)
     # continuous shooting: gphoto2 -I 1 -F 4 --capture-image-and-download --no-keep
 
-    filename = PhotoProcess.takePic()
-    PhotoProcess.uploadPic(filename)
+    pp = PhotoProcess()
+    
+    filename = pp.take_pic()
+    pp.upload_pic(filename)
 
 
 def blink(pin, number):
@@ -34,8 +36,12 @@ def blink(pin, number):
 
 def main():
     init()
-    while True:
-        pass
+
+    try:
+        while True:
+            pass
+    finally:
+        GPIO.cleanup()
 
 if __name__ == '__main__':
     main()
