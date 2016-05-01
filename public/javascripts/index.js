@@ -2,7 +2,7 @@
 
 var photosRef = new Firebase('https://ntuaf-hand.firebaseio.com/photos');
 
-photosRef.on('child_added', function(childSnapshot, prevChildKey) {
+photosRef.orderByChild("timestamp").limitToLast(1).on('child_added', function(childSnapshot, prevChildKey) {
   var data = childSnapshot.val();
 
   appendImg(data.real_path);
@@ -22,7 +22,7 @@ function appendImg(src){
   container.appendChild(divElem);
   document.styleSheets[0].insertRule('.photo-box:after { content: url(' + qrAPI + ') }', 0);
 
-  while(container.childElementCount > 4){
+  while(container.childElementCount > 10){
     container.removeChild(container.firstChild);
   }
 }

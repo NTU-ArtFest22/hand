@@ -69,7 +69,7 @@ class PhotoProcess:
         server_path = '/' + '/'.join(fullpath.split('/')[2:])
 
         result = self.__client.upload_from_path(fullpath, {'album': config['imgur']['album_deletehash']})
-        payload = {'hits': 0, 'imgur_link': result['link'], 'real_path': server_path}
+        payload = {'hits': 0, 'imgur_link': result['link'], 'real_path': server_path, 'timestamp': {'.sv': 'timestamp'}}
         self.__firebaseRef.put('/photos', result['id'], payload)
 
         return result['link']
