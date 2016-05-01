@@ -22,10 +22,10 @@ def takePic(channel):
     # continuous shooting: gphoto2 -I 1 -F 4 --capture-image-and-download --no-keep
 
     pp = PhotoProcess()
-    
-    filename = pp.take_pic()
-    pp.upload_pic(filename)
 
+    img_path = pp.take_pic()
+    img_with_logo_path = pp.pic_compose_logo(img_path)
+    pp.upload_pic(img_with_logo_path)
 
 def blink(pin, number):
     for i in range(number):
